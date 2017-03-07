@@ -1,0 +1,151 @@
+        <!doctype html>
+        <html>
+        <head>
+            <title>Hackathon 3</title>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+            <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+            <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+
+            <script>
+                 $(document).ready(function(){
+                    $("#button1").on("click",function(e){
+                        e.preventDefault();
+                        // Get data
+                        var road = $("#road1").val();
+                        var direction = $("#direction1").val();
+                        var day = $("#day1").val();
+                        var time = $("#time1").val();
+                        var status = $("#status1").val();
+
+                        // Send request
+                        $.ajax({
+                            url: 'http://54.193.15.231:5000/insert',
+                            type: 'GET',
+                            data: { roadId: road, direction : direction, day : day, time : time, status : status} ,
+                            success: function (response) {
+                                // Show alert
+                                alert(response);
+                            },
+                            error: function () {
+                                // Show alert
+                                alert("Something went to shit!");
+                            }
+                        });
+                    });
+
+                    $("#button2").on("click",function(e){
+                        e.preventDefault();
+                        // Get data
+                        var road = $("#road2").val();
+                        var direction = $("#direction2").val();
+                        var day = $("#day2").val();
+                        var time = $("#time2").val();
+
+                        // Send request
+                        $.ajax({
+                            url: 'http://54.193.15.231:5000/predict',
+                            type: 'GET',
+                            data: { roadId: road, direction : direction, day : day, time : time} ,
+                            success: function (response) {
+                                // Show alert
+                                alert(response);
+                            },
+                            error: function () {
+                                // Show alert
+                                alert("Something went to shit!");
+                            }
+                        });
+                    });
+                });
+
+            </script>
+
+        </head>
+
+        <!-- Center body in parent -->
+        <style>
+            body {
+                width: 600px; margin: 20px auto; /* center */ padding: 20px;
+                border: 1px solid black;
+            }
+        </style>
+
+        <body>
+            <center>
+                <p>Hackathon 3 - Aviv and Ofir</p>
+            </center>
+
+            <!-- Add to trained data -->
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="road1">
+                <label class="mdl-textfield__label" for="road1">Road ID</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="direction1">
+                <label class="mdl-textfield__label" for="direction1">Direction</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="day1">
+                <label class="mdl-textfield__label" for="day1">Day</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="time1">
+                <label class="mdl-textfield__label" for="time1">Time</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="status1">
+                <label class="mdl-textfield__label" for="status1">Status</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+              <p> </p>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="button1" type="submit">
+                Add to trained data
+            </button>
+
+
+            <!-- Get estimated status -->
+            <p> </p>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="road2">
+                <label class="mdl-textfield__label" for="road2">Road ID</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="direction2">
+                <label class="mdl-textfield__label" for="direction2">Direction</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="day2">
+                <label class="mdl-textfield__label" for="day2">Day</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="time2">
+                <label class="mdl-textfield__label" for="time2">Time</label>
+                <span class="mdl-textfield__error">Input is not a number!</span>
+              </div>
+
+                <p> </p>
+
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="button2" type="submit">
+                  Get estimated status
+                </button>
+
+        </body>
+        </html>
